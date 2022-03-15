@@ -2,7 +2,7 @@
 .DEFAULT_GOAL := help
 
 NAME = apicurio-studio
-NAMESPACE = apicurio
+NAMESPACE = abhay900
 RELEASE_VERSION ?= 0.0.6
 LOCAL_RELEASE ?= 'false'
 LOCAL_IMAGE := $(NAME):$(RELEASE_VERSION)
@@ -18,11 +18,11 @@ update: build push
 
 build: ## Build docker image with name LOCAL_IMAGE (NAME:RELEASE_VERSION).
 	@if [ -f "./front-end/quickstart/target/apicurio-studio-${RELEASE_VERSION}-quickstart.zip" ] || [ ${LOCAL_RELEASE} == "true" ]; then \
-		docker build -f $(THISDIR_PATH)/Dockerfile -t $(LOCAL_IMAGE) $(PROJECT_PATH) \
+		docker builx build --platform -f $(THISDIR_PATH)/Dockerfile -t $(LOCAL_IMAGE) $(PROJECT_PATH) \
 			--build-arg RELEASE_VERSION=$(RELEASE_VERSION) \
 			--build-arg RELEASE_PATH='./front-end/quickstart/target/apicurio-studio-${RELEASE_VERSION}-quickstart.zip'; \
 	else \
-		docker build -f $(THISDIR_PATH)/Dockerfile -t $(LOCAL_IMAGE) $(PROJECT_PATH) \
+		docker buildx build --platform -f $(THISDIR_PATH)/Dockerfile -t $(LOCAL_IMAGE) $(PROJECT_PATH) \
 			--build-arg RELEASE_VERSION=$(RELEASE_VERSION) \
 			--build-arg RELEASE_PATH='https://github.com/apicurio/apicurio-studio/releases/download/v${RELEASE_VERSION}/apicurio-studio-${RELEASE_VERSION}-quickstart.zip'; \
 	fi

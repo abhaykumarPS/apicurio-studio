@@ -6,7 +6,6 @@ RUN yum install -y \
   && yum clean all
 
 WORKDIR /opt/apicurio
-
 ADD ${RELEASE_PATH} /opt/apicurio
 ADD entrypoint.sh /opt/apicurio
 
